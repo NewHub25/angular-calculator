@@ -15,22 +15,22 @@ export class CalculatorComponent {
   operation: string | null = null;
   prevValue: number | null = null;
   buttons: Array<string> = [
-    '-',
-    '.',
-    '*',
-    '/',
-    '+',
-    '=',
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
     '7',
     '8',
     '9',
+    '/',
+    '4',
+    '5',
+    '6',
+    '*',
+    '1',
+    '2',
+    '3',
+    '-',
+    '0',
+    '.',
+    '=',
+    '+',
   ];
   buttonLabels: Record<string, string> = {
     '-': 'subtract',
@@ -57,23 +57,31 @@ export class CalculatorComponent {
     });
   }
 
-  handleAdd(char: string) {
-    this.display =
-      this.display === '0' && char === '0' ? '0' : this.display + char;
-    this.display = this.display.replace(/0*([0-9.]+)/g, '$1');
-    this.display = this.display.replace(/[0-9.]+/g, (dot) => {
+  handleAdd(newChar: string) {
+    let { display } = this;
+    display = display === '0' && newChar === '0' ? '0' : display + newChar;
+    display = display.replace(/0*([0-9.]+)/g, '$1');
+    display = display.replace(/[0-9.]+/g, (dot) => {
       return dot.split('.').reduce((a, b, i) => a + (i === 1 ? '.' : '') + b);
     });
-    this.display = this.display.replace(/([+\-*/]*)([+\-*/])/g, (_, p1, p2) => {
+    display = display.replace(/([+\-*/]*)([+\-*/])/g, (_, p1, p2) => {
       if (p1 === '') return p2;
       return p2 === '-' ? p1.at(-1) + p2 : p2;
     });
+    this.display = display;
   }
 
   handleEqualsClick() {
-    const result = evaluate(this.display);
-    const { display } = this;
-    this.display = String(result);
+    try {
+      const result = evaluate(this.display) as number;
+      if (isNaN(result)) {
+        throw new Error('Error in calculation 🚫');
+      }
+      this.display = String(result);
+    } catch (error: any) {
+      console.warn(error.message);
+      this.display = 'Error 🚫';
+    }
   }
 
   handleButtonClick(char: string) {
