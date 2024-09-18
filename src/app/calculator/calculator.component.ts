@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { evaluate } from 'mathjs';
 
 @Component({
   standalone: true,
@@ -11,10 +12,7 @@ import { Component } from '@angular/core';
 export class CalculatorComponent {
   display = '0';
   operation: string | null = null;
-  prevValue: string = '';
-  currentValue: string = '';
-  operatorClickedLast = false;
-  isNegativeInput = false; // Bandera para identificar si el número es negativo
+  prevValue: number | null = null;
   buttons: Array<string> = [
     '7',
     '8',
@@ -33,7 +31,6 @@ export class CalculatorComponent {
     '=',
     '+',
   ];
-
   buttonLabels: Record<string, string> = {
     '7': 'seven',
     '8': 'eight',
@@ -53,97 +50,47 @@ export class CalculatorComponent {
     '+': 'add',
   };
 
-  handleNumberClick(num: string) {
-    if (this.operatorClickedLast) {
-      this.display = num;
-      this.operatorClickedLast = false;
-    } else {
-      if (num === '.' && this.display.includes('.')) return; // Evitar múltiples puntos decimales
-      this.display = this.display === '0' ? num : this.display + num;
-    }
-    this.currentValue = this.display;
+  handleAdd(char: string) {
+    this.display =
+      this.display === '0' && char === '0' ? '0' : this.display + char;
+    this.display = this.display.replace(/0*([0-9.]+)/g, '$1');
+    this.display = this.display.replace(/[0-9.]+/g, (dot) => {
+      return dot.split('.').reduce((a, b, i) => a + (i === 1 ? '.' : '') + b);
+    });
+    this.display = this.display.replace(
+      /([+\-*/]*)([+\-*/])/g,
+      (signs, p1, p2) => {
+        console.log({ p1, p2 });
+        if (p1 === '') return p2;
+        return p2 === '-' ? p1.at(-1) + p2 : p2;
+      },
+    );
   }
 
-  handleOperationClick(op: string) {
-    // Manejar números negativos después de un operador
-    if (op === '-' && (this.operatorClickedLast || this.display === '0')) {
-      if (this.operatorClickedLast) {
-        this.display = '-';
-        this.isNegativeInput = true; // Indica que el siguiente número será negativo
-      } else if (this.display === '0') {
-        this.display = '-';
-      }
-      this.operatorClickedLast = true;
-      return;
-    }
-
-    // Reemplazar operadores consecutivos (excepto para el signo negativo)
-    if (this.operatorClickedLast && !this.isNegativeInput) {
-      this.operation = op;
-      return;
-    }
-
-    if (this.prevValue && !this.operatorClickedLast) {
-      this.calculate();
-    } else {
-      this.prevValue = this.display;
-    }
-
-    this.operation = op;
-    this.operatorClickedLast = true;
-    this.isNegativeInput = false; // Resetear la bandera de número negativo
-  }
-
-  calculate() {
-    let result = 0;
-    const prev = parseFloat(this.prevValue);
-    const current = parseFloat(this.currentValue);
-
-    switch (this.operation) {
-      case '+':
-        result = prev + current;
-        break;
-      case '-':
-        result = prev - current;
-        break;
-      case '*':
-        result = prev * current;
-        break;
-      case '/':
-        result = prev / current;
-        break;
-      default:
-        return;
-    }
-
-    this.display = result.toString();
-    this.prevValue = this.display;
-    this.currentValue = '';
-    this.operation = null;
-  }
+  // handleOperationClick(op: string) {
+  //   this.operation = op;
+  //   this.prevValue = parseFloat(this.display.replace(/\.+/, '.'));
+  //   this.display = '0';
+  // }
 
   handleEqualsClick() {
-    if (!this.prevValue || !this.operation) return;
-    this.calculate();
-    this.operatorClickedLast = false;
+    const result = String(evaluate(this.display));
+    const { display } = this;
+    console.log({ result, display });
+    this.display = result;
   }
 
-  handleButtonClick(btn: string) {
-    if (btn === '=') {
+  handleButtonClick(char: string) {
+    if (char === '=') {
       this.handleEqualsClick();
-    } else if (['+', '-', '*', '/'].includes(btn)) {
-      this.handleOperationClick(btn);
     } else {
-      this.handleNumberClick(btn);
+      this.handleAdd(char);
     }
   }
 
   handleClear() {
     this.display = '0';
-    this.prevValue = '';
-    this.currentValue = '';
-    this.operation = null;
-    this.operatorClickedLast = false;
-    this.isNegativeInput = false;
+    // this.operation = null;
+    // this.prevValue = null;
   }
 }
