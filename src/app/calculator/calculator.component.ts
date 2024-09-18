@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { evaluate } from 'mathjs';
+import { KeyboardService } from '../keyboard.service';
 
 @Component({
   standalone: true,
@@ -14,41 +15,47 @@ export class CalculatorComponent {
   operation: string | null = null;
   prevValue: number | null = null;
   buttons: Array<string> = [
-    '7',
-    '8',
-    '9',
-    '/',
-    '4',
-    '5',
-    '6',
+    '-',
+    '.',
     '*',
+    '/',
+    '+',
+    '=',
+    '0',
     '1',
     '2',
     '3',
-    '-',
-    '0',
-    '.',
-    '=',
-    '+',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
   ];
   buttonLabels: Record<string, string> = {
-    '7': 'seven',
-    '8': 'eight',
-    '9': 'nine',
-    '/': 'divide',
-    '4': 'four',
-    '5': 'five',
-    '6': 'six',
+    '-': 'subtract',
+    '.': 'decimal',
     '*': 'multiply',
+    '/': 'divide',
+    '+': 'add',
+    '=': 'equals',
+    '0': 'zero',
     '1': 'one',
     '2': 'two',
     '3': 'three',
-    '-': 'subtract',
-    '0': 'zero',
-    '.': 'decimal',
-    '=': 'equals',
-    '+': 'add',
+    '4': 'four',
+    '5': 'five',
+    '6': 'six',
+    '7': 'seven',
+    '8': 'eight',
+    '9': 'nine',
   };
+
+  constructor(private keyboardService: KeyboardService) {
+    this.keyboardService.keyPressed$.subscribe((key) => {
+      this.handleKeyPress(key);
+    });
+  }
 
   handleAdd(char: string) {
     this.display =
@@ -57,27 +64,16 @@ export class CalculatorComponent {
     this.display = this.display.replace(/[0-9.]+/g, (dot) => {
       return dot.split('.').reduce((a, b, i) => a + (i === 1 ? '.' : '') + b);
     });
-    this.display = this.display.replace(
-      /([+\-*/]*)([+\-*/])/g,
-      (signs, p1, p2) => {
-        console.log({ p1, p2 });
-        if (p1 === '') return p2;
-        return p2 === '-' ? p1.at(-1) + p2 : p2;
-      },
-    );
+    this.display = this.display.replace(/([+\-*/]*)([+\-*/])/g, (_, p1, p2) => {
+      if (p1 === '') return p2;
+      return p2 === '-' ? p1.at(-1) + p2 : p2;
+    });
   }
 
-  // handleOperationClick(op: string) {
-  //   this.operation = op;
-  //   this.prevValue = parseFloat(this.display.replace(/\.+/, '.'));
-  //   this.display = '0';
-  // }
-
   handleEqualsClick() {
-    const result = String(evaluate(this.display));
+    const result = evaluate(this.display);
     const { display } = this;
-    console.log({ result, display });
-    this.display = result;
+    this.display = String(result);
   }
 
   handleButtonClick(char: string) {
@@ -90,7 +86,21 @@ export class CalculatorComponent {
 
   handleClear() {
     this.display = '0';
-    // this.operation = null;
-    // this.prevValue = null;
+  }
+
+  handleBackSpace() {
+    this.display = this.display.slice(0, this.display.length - 1) || '0';
+  }
+
+  handleKeyPress(key: string) {
+    if (key === 'Enter') {
+      this.handleEqualsClick();
+    } else if (key === 'Delete') {
+      this.handleClear();
+    } else if (key === 'Backspace') {
+      this.handleBackSpace();
+    } else {
+      this.handleAdd(key);
+    }
   }
 }
