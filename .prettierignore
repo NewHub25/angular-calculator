@@ -1,0 +1,7 @@
+/dist
+.angular
+.vscode
+node_modules
+/tmp
+/*.json
+/*config*
