@@ -1,40 +1,40 @@
-.custom-btn {
-  display: block;
-  width: 90%;
-  margin-inline: auto;
-  height: 50px;
-  color: #eee;
-  border-radius: 0.8rem;
-  line-height: 1rem;
-  background: transparent;
-  cursor: pointer;
-  transition: all 0.3s ease;
+.buttons {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  z-index: 10;
+}
+.button {
   position: relative;
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
-  outline: none;
-}
-.custom-btn {
-  background: crimson;
+  background: #111;
+  padding: 1rem;
+  color: #eee;
   border: none;
-  z-index: 1;
+  outline: none;
+  border-radius: 0.5rem;
+  &:active {
+    translate: 0 2px;
+  }
 }
-.custom-btn:after {
-  position: absolute;
+.button:hover {
+  background-attachment: fixed;
+  background-image: radial-gradient(
+    circle at var(--x, 0) var(--y, 0),
+    hsl(0 0% 100% / 0.175),
+    hsl(0 0% 100% / 0.0125) 2rem
+  );
+}
+.button::after {
+  border-radius: 0.6rem;
   content: '';
-  width: 0;
-  height: 100%;
-  top: 0;
-  right: 0;
+  position: absolute;
+  inset: -1.5px;
+  background-attachment: fixed;
+  background-image: radial-gradient(
+    circle at var(--x, 0) var(--y, 0),
+    hsl(0 0% 100% / 0.75),
+    transparent 2rem
+  );
+  pointer-events: none;
   z-index: -1;
-  background-color: #663dff;
-  border-radius: 5px;
-  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
-  transition: all 0.3s ease;
-}
-.custom-btn:hover:after {
-  left: 0;
-  width: 100%;
-}
-.custom-btn:active {
-  top: 2px;
 }

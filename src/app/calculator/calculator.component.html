@@ -16,16 +16,14 @@
     <div id="display" class="display">{{ display }}</div>
     <div class="buttons">
       <button
-        *ngFor="let btn of buttons"
         class="button"
-        (click)="handleButtonClick(btn)"
+        *ngFor="let btn of buttons"
         id="{{ buttonLabels[btn] }}"
+        (click)="handleButtonClick(btn)"
       >
         {{ btn }}
       </button>
     </div>
-    <button id="clear" class="clear-button custom-btn" (click)="handleClear()">
-      Clear
-    </button>
+    <button id="clear" class="custom-btn" (click)="handleClear()">Clear</button>
   </div>
 </div>

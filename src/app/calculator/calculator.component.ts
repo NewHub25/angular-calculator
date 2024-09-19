@@ -6,7 +6,11 @@ import { Component } from '@angular/core';
   imports: [CommonModule],
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.css', './buttons.css'],
+  styleUrls: [
+    './calculator.component.css',
+    './button-clear.css',
+    './buttons.css',
+  ],
 })
 export class CalculatorComponent {
   display = '0';
@@ -52,6 +56,13 @@ export class CalculatorComponent {
     '=': 'equals',
     '+': 'add',
   };
+
+  constructor() {
+    document.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--x', e.x + 'px');
+      document.documentElement.style.setProperty('--y', e.y + 'px');
+    });
+  }
 
   handleNumberClick(num: string) {
     if (this.operatorClickedLast) {
