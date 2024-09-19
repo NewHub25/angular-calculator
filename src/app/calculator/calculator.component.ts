@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   imports: [CommonModule],
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.css'],
+  styleUrls: ['./calculator.component.css', './buttons.css'],
 })
 export class CalculatorComponent {
   display = '0';

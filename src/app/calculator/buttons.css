@@ -1,0 +1,40 @@
+.custom-btn {
+  display: block;
+  width: 90%;
+  margin-inline: auto;
+  height: 50px;
+  color: #eee;
+  border-radius: 0.8rem;
+  line-height: 1rem;
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
+  outline: none;
+}
+.custom-btn {
+  background: crimson;
+  border: none;
+  z-index: 1;
+}
+.custom-btn:after {
+  position: absolute;
+  content: '';
+  width: 0;
+  height: 100%;
+  top: 0;
+  right: 0;
+  z-index: -1;
+  background-color: #663dff;
+  border-radius: 5px;
+  box-shadow: inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
+  transition: all 0.3s ease;
+}
+.custom-btn:hover:after {
+  left: 0;
+  width: 100%;
+}
+.custom-btn:active {
+  top: 2px;
+}
