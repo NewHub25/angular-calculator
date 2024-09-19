@@ -53,4 +53,18 @@
   margin-bottom: 20px;
   overflow: hidden;
   box-shadow: inset 1px 1px 3px #eee3;
+  position: relative;
+  #copy {
+    position: absolute;
+    width: 1.2rem;
+    height: 1.2rem;
+    left: 0.5rem;
+    bottom: 50%;
+    cursor: pointer;
+    fill: #eee;
+    &:active {
+      fill: #ff0;
+      translate: 0 1px;
+    }
+  }
 }

@@ -146,4 +146,10 @@ export class CalculatorComponent implements AfterViewInit {
       this.handleAdd(key);
     }
   }
+
+  handleButtonCopy() {
+    navigator.clipboard
+      .writeText(this.display)
+      .then(() => console.log('text copied'));
+  }
 }
