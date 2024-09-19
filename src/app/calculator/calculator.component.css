@@ -4,8 +4,7 @@
   align-items: center;
   padding-block: 1rem;
   min-height: 100vh;
-  padding: 2rem;
-  padding-bottom: calc(20dvh + 5rem);
+  padding: 3rem 0 calc(20dvh + 6rem);
 }
 .calculator {
   contain: layout;
