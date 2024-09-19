@@ -8,7 +8,6 @@
 }
 .calculator {
   contain: paint;
-  position: absolute;
   color: #eee;
   width: 320px;
   background-color: #222;
@@ -34,6 +33,7 @@
     cursor: move;
     fill: #ff03;
     position: relative;
+    margin-right: 0.5rem;
     &:hover {
       fill: #ff0d;
     }
@@ -48,7 +48,7 @@
   background-color: #333;
   font-size: 2rem;
   text-align: right;
-  padding: 1rem;
+  padding: 1rem 0.5rem;
   border-radius: 10px;
   margin-bottom: 20px;
   overflow: hidden;

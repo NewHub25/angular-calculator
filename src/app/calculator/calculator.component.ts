@@ -7,6 +7,7 @@ import { CleanStringService } from './clean-string.service';
 import { FormatService } from './format.service';
 import { Draggable } from 'gsap/Draggable';
 import gsap from 'gsap';
+import 'animate.css';
 gsap.registerPlugin(Draggable);
 
 @Component({
@@ -38,6 +39,9 @@ export class CalculatorComponent implements AfterViewInit {
           bounds: window,
           inertia: true,
         });
+        trolleyElement
+          .closest('.calculator')!
+          .classList.add('animate__headShake');
         trolleyElement.remove();
       },
       { once: true },
