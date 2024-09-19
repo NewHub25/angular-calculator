@@ -2,10 +2,14 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { evaluate } from 'mathjs';
 import { KeyboardService } from '../keyboard.service';
+import { MoveMouseService } from './movemouse.service';
+import { CleanStringService } from './clean-string.service';
+import { FormatService } from './format.service';
 
 @Component({
   standalone: true,
   imports: [CommonModule],
+  providers: [MoveMouseService, CleanStringService, FormatService],
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
   styleUrls: [
@@ -55,29 +59,22 @@ export class CalculatorComponent {
     '9': 'nine',
   };
 
-  constructor(private keyboardService: KeyboardService) {
+  constructor(
+    private readonly keyboardService: KeyboardService,
+    private readonly moveMouseService: MoveMouseService,
+    private readonly cleanStringService: CleanStringService,
+    private readonly formatService: FormatService,
+  ) {
     this.keyboardService.keyPressed$.subscribe((key) => {
       this.handleKeyPress(key);
     });
-    document.addEventListener('mousemove', (e) => {
-      document.documentElement.style.setProperty('--x', e.x + 'px');
-      document.documentElement.style.setProperty('--y', e.y + 'px');
-    });
+    this.moveMouseService.init();
   }
 
   handleAdd(newChar: string) {
-    let { display } = this;
-    if (display.length >= 11) return;
-    display = display === '0' && newChar === '0' ? '0' : display + newChar;
-    display = display.replace(/0*([0-9.]+)/g, '$1');
-    display = display.replace(/[0-9.]+/g, (dot) => {
-      return dot.split('.').reduce((a, b, i) => a + (i === 1 ? '.' : '') + b);
-    });
-    display = display.replace(/([+\-*/]*)([+\-*/])/g, (_, p1, p2) => {
-      if (p1 === '') return p2;
-      return p2 === '-' ? p1.at(-1) + p2 : p2;
-    });
-    this.display = display;
+    const plus =
+      this.display === '0' && newChar === '0' ? '0' : this.display + newChar;
+    this.display = this.cleanStringService.clean(plus);
   }
 
   handleEqualsClick() {
@@ -86,7 +83,7 @@ export class CalculatorComponent {
       if (isNaN(result)) {
         throw new Error('Error in calculation 🚫');
       }
-      this.display = String(result);
+      this.display = this.formatService.format(result);
     } catch (error: any) {
       console.warn(error.message);
       this.display = 'Error 🚫';
