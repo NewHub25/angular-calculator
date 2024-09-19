@@ -1,10 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { evaluate } from 'mathjs';
 import { KeyboardService } from '../keyboard.service';
 import { MoveMouseService } from './movemouse.service';
 import { CleanStringService } from './clean-string.service';
 import { FormatService } from './format.service';
+import { Draggable } from 'gsap/Draggable';
+import gsap from 'gsap';
+gsap.registerPlugin(Draggable);
 
 @Component({
   standalone: true,
@@ -18,7 +21,29 @@ import { FormatService } from './format.service';
     './buttons.css',
   ],
 })
-export class CalculatorComponent {
+export class CalculatorComponent implements AfterViewInit {
+  @ViewChild('calculatorContainer', { static: true })
+  calculatorContainer!: ElementRef;
+
+  ngAfterViewInit() {
+    const trolleyElement = document.getElementById('trolley');
+    if (!trolleyElement) return;
+    // Inicia el drag-and-drop con GSAP Draggable
+    trolleyElement.addEventListener(
+      'click',
+      () => {
+        Draggable.create(this.calculatorContainer.nativeElement, {
+          type: 'x,y',
+          edgeResistance: 0.65,
+          bounds: window,
+          inertia: true,
+        });
+        trolleyElement.remove();
+      },
+      { once: true },
+    );
+  }
+
   display = '0';
   operation: string | null = null;
   prevValue: number | null = null;
