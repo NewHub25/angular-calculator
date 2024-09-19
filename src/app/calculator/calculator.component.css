@@ -1,20 +1,24 @@
-/* Container */
 .calculator-container {
   display: flex;
   justify-content: center;
   align-items: center;
   padding-block: 1rem;
-  max-height: 100vh;
-} /* Calculator s tyling */
+  min-height: 100vh;
+  padding: 2rem;
+  padding-bottom: calc(20dvh + 5rem);
+}
 .calculator {
+  contain: layout;
   color: #eee;
   width: 320px;
   background-color: #222;
   border-radius: 20px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.5),
+    inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
   padding: 1rem;
-} /* Header styling */
-.header {
+}
+.calculator .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,10 +29,10 @@
   font-weight: bold;
 }
 .icon {
-  width: 24px;
-  height: 24px;
+  width: 2rem;
+  height: 2rem;
   fill: #3b82f6;
-} /* Display styling */
+}
 .display {
   background-color: #333;
   font-size: 36px;
@@ -36,46 +40,5 @@
   padding: 20px;
   border-radius: 10px;
   margin-bottom: 20px;
-} /* Buttons grid */
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 0.5rem;
-} /* Button styling */
-.button {
-  color: #eee;
-  background-color: #4a4a4a;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  padding: 0.7rem;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-.button:hover {
-  background-color: #6a6a6a;
-}
-.button:active {
-  background-color: #3a3a3a;
-} /* Clear button */
-.clear-button {
-  color: #eee;
-  background-color: #ff4d4d;
-  font-size: 18px;
-  font-weight: bold;
-  border: none;
-  padding: 15px;
-  width: 100%;
-  border-radius: 10px;
-  margin-top: 20px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  --reddish: crimson;
-}
-.clear-button:hover {
-  background-color: hsl(from var(--reddish) h s calc(l * 1.4));
-}
-.clear-button:active {
-  background-color: var(--reddish);
+  overflow: hidden;
 }

@@ -3,29 +3,27 @@
     <div class="header">
       <h1 class="title">CalcPro</h1>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
         class="icon"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 576 512"
       >
+        <!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
         <path
-          d="M10.5 3.75a6 6 0 00-5.98 6.496A5.25 5.25 0 006.75 20.25H18a4.5 4.5 0 002.206-8.423 3.75 3.75 0 00-4.133-4.303A6.001 6.001 0 0010.5 3.75zm2.03 5.47a.75.75 0 00-1.06 0l-3 3a.75.75 0 101.06 1.06l1.72-1.72v4.94a.75.75 0 001.5 0v-4.94l1.72 1.72a.75.75 0 101.06-1.06l-3-3z"
+          d="M282.6 78.1c8-27.3 33-46.1 61.4-46.1l200 0c17.7 0 32 14.3 32 32s-14.3 32-32 32L344 96 238.7 457c-3.6 12.3-14.1 21.2-26.8 22.8s-25.1-4.6-31.5-15.6L77.6 288 32 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l45.6 0c22.8 0 43.8 12.1 55.3 31.8l65.2 111.8L282.6 78.1zM393.4 233.4c12.5-12.5 32.8-12.5 45.3 0L480 274.7l41.4-41.4c12.5-12.5 32.8-12.5 45.3 0s12.5 32.8 0 45.3L525.3 320l41.4 41.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L480 365.3l-41.4 41.4c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L434.7 320l-41.4-41.4c-12.5-12.5-12.5-32.8 0-45.3z"
         />
       </svg>
     </div>
     <div id="display" class="display">{{ display }}</div>
     <div class="buttons">
       <button
-        *ngFor="let btn of buttons"
         class="button"
-        (click)="handleButtonClick(btn)"
+        *ngFor="let btn of buttons"
         id="{{ buttonLabels[btn] }}"
+        (click)="handleButtonClick(btn)"
       >
         {{ btn }}
       </button>
     </div>
-    <button id="clear" class="clear-button" (click)="handleClear()">
-      Clear
-    </button>
+    <button id="clear" class="custom-btn" (click)="handleClear()">Clear</button>
   </div>
 </div>

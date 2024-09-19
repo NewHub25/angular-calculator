@@ -8,7 +8,11 @@ import { KeyboardService } from '../keyboard.service';
   imports: [CommonModule],
   selector: 'app-calculator',
   templateUrl: './calculator.component.html',
-  styleUrls: ['./calculator.component.css'],
+  styleUrls: [
+    './calculator.component.css',
+    './button-clear.css',
+    './buttons.css',
+  ],
 })
 export class CalculatorComponent {
   display = '0';
@@ -54,6 +58,10 @@ export class CalculatorComponent {
   constructor(private keyboardService: KeyboardService) {
     this.keyboardService.keyPressed$.subscribe((key) => {
       this.handleKeyPress(key);
+    });
+    document.addEventListener('mousemove', (e) => {
+      document.documentElement.style.setProperty('--x', e.x + 'px');
+      document.documentElement.style.setProperty('--y', e.y + 'px');
     });
   }
 
