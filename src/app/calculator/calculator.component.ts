@@ -59,6 +59,7 @@ export class CalculatorComponent {
 
   handleAdd(newChar: string) {
     let { display } = this;
+    if (display.length >= 11) return;
     display = display === '0' && newChar === '0' ? '0' : display + newChar;
     display = display.replace(/0*([0-9.]+)/g, '$1');
     display = display.replace(/[0-9.]+/g, (dot) => {
