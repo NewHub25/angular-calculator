@@ -24,14 +24,14 @@
   letter-spacing: 4px;
   font-size: 2.5rem;
   line-height: 1.7;
-  color: hsl(201, 100%, 34%);
+  color: hsl(331, 100%, 53%);
   transform: translate3d(0, 0, 40px) perspective(100px);
 }
 .brand:before {
   position: absolute;
   content: '';
   z-index: -1;
-  background: linear-gradient(217deg, hsl(348, 83%, 57%), #eee);
+  background: linear-gradient(217deg, hsla(348, 66%, 77%, 0.552), #eee);
   width: 90px;
   height: 100px;
   display: block;

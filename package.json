@@ -20,7 +20,6 @@
     "@angular/platform-browser-dynamic": "^18.0.0",
     "@angular/router": "^18.0.0",
     "angular-cli-ghpages": "^2.0.1",
-    "animate.css": "^4.1.1",
     "gsap": "^3.12.5",
     "mathjs": "^13.1.1",
     "rxjs": "~7.8.0",

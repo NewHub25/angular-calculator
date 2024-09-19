@@ -10,13 +10,25 @@
   contain: paint;
   color: #eee;
   width: 320px;
-  background-color: #222;
+  background-color: #111;
   border-radius: 20px;
   box-shadow:
     0 10px 20px rgba(0, 0, 0, 0.5),
     inset 2px 2px 2px 0px rgba(255, 255, 255, 0.5);
   padding: 1rem;
   z-index: 1000;
+}
+.calculator.headShake {
+  animation: headShake 0.2s ease-in-out 2 alternate;
+}
+@keyframes headShake {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0.5rem 0.1rem;
+  }
 }
 .calculator .header {
   display: flex;
@@ -45,7 +57,7 @@
   fill: #3b82f6;
 }
 .display {
-  background-color: #333;
+  background-color: #222;
   font-size: 2rem;
   text-align: right;
   padding: 1rem 0.5rem;
