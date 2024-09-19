@@ -6,7 +6,7 @@
 }
 .button {
   position: relative;
-  background: #111;
+  background-color: #111;
   padding: 1rem;
   color: #eee;
   border: none;
@@ -37,4 +37,13 @@
   );
   pointer-events: none;
   z-index: -1;
+}
+#subtract,
+#multiply,
+#divide,
+#add {
+  background-color: #333;
+}
+#equals {
+  background-color: #444;
 }

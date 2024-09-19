@@ -34,7 +34,7 @@
   background-color: #036194;
   color: white;
   padding: 1rem 0;
-  height: 20dvh;
+  min-height: 20dvh;
 }
 .footer-content {
   display: flex;
@@ -42,6 +42,10 @@
   align-items: center;
   flex-wrap: wrap;
   text-align: center;
+  @media (width<500px) {
+    flex-flow: column nowrap;
+    gap: 2rem;
+  }
 }
 .footer-company {
   margin-bottom: 16px;
@@ -54,6 +58,23 @@
   color: #a0aec0;
 }
 .footer-rights {
-  font-size: 14px;
   color: #a0aec0;
+  p::after {
+    font-size: 1.2rem;
+    content: '😎';
+  }
+}
+.footer-thanks {
+  h4 {
+    margin-bottom: 0.3rem;
+  }
+  p {
+    text-align: left;
+    font-size: 0.8rem;
+    opacity: 0.8;
+    &::before {
+      content: '👏 ';
+      font-size: 1.5rem;
+    }
+  }
 }
