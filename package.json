@@ -1,10 +1,10 @@
 {
-  "name": "angular-spa",
+  "name": "angular-calculator",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href /angular-spa/",
+    "build": "ng build --base-href /angular-calculator/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "prettier --write ."

@@ -7,6 +7,5 @@ import { CalculatorComponent } from './calculator/calculator.component';
   standalone: true,
   imports: [LayoutComponent, CalculatorComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
 })
 export class AppComponent {}
